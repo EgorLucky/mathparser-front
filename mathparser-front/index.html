@@ -56,7 +56,7 @@
     {
         var xhr = new XMLHttpRequest();
 
-        xhr.open("post", "/api/math/computeExpression", true);
+        xhr.open("post", "https://mathparser.herokuapp.com/api/math/computeExpression", true);
 
         xhr.onload = requestFinishedDelegate;
 
