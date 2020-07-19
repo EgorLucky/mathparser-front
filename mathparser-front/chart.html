@@ -1,5 +1,6 @@
 ﻿<link rel="stylesheet" href="css/loader.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script src="js/configuration.js"></script>
 <textarea id="expressionInputElement">X^2</textarea>
 <br>
 Область определений<br> 
@@ -31,20 +32,6 @@
             //args
             labels: labels,
             datasets: [
-            //{
-            //    label: "f(x) = x",
-            //    function: function (x) { return x },
-            //    borderColor: "rgba(75, 192, 192, 1)",
-            //    data: [],
-            //    fill: false
-            //},
-            //{
-            //    label: "f(x) = x²",
-            //    function: function (x) { return x * x },
-            //    borderColor: "rgba(153, 102, 255, 1)",
-            //    data: [],
-            //    fill: false
-            //},
             {
                     label: "mathFunction",
                     function: x => points.filter(p => p.x == x)
@@ -103,7 +90,7 @@
             ])
                 
         };
-        let response = await fetch('https://mathparser.herokuapp.com/api/math/computeFunctionValues',
+        let response = await fetch(appConfiguration.mathParserServiceUrl + '/api/math/computeFunctionValues',
         {
             method: "post",
             headers: {
