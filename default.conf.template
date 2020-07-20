@@ -3,7 +3,7 @@ server {
 
   location / {
     root   /usr/share/nginx/html;
-    index  index/index.html
-	chart chart/chart.html
+    index index/index.html;
+	chart chart/chart.html;
   }
 }
