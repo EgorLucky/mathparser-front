@@ -8,11 +8,5 @@ server {
             rewrite ^/chart$ /chart.html;
         }
   }
-  
-  location ~ \.css {
-		add_header  Content-Type    text/css;
-	}
-  location ~ \.js {
-	add_header  Content-Type    application/x-javascript;
-  }
+ 
 }
