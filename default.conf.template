@@ -3,11 +3,7 @@ server {
 
   location / {
     root   /usr/share/nginx/html;
-	
-	rewrite ^/index.html$ /index/index.html permanent;
-	rewrite ^/index$ /index/index.html permanent;
-
-	rewrite ^/chart.html$ /chart/chart.html permanent;
-	rewrite ^/chart$ /cahrt/chart.html permanent;
+    index  index/index.html
+	chart chart/chart.html
   }
 }
