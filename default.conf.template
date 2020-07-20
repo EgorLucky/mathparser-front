@@ -3,7 +3,14 @@ server {
 
   location / {
     root   /usr/share/nginx/html;
-    index index/index.html;
+	
+	location = / {
+            rewrite ^/$ /index.html;
+        }
+	
+    location = /index {
+            rewrite ^/index$ /index.html;
+        }
 	location = /chart {
             rewrite ^/chart$ /chart.html;
         }
