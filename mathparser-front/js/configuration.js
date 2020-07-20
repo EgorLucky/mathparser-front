@@ -1,3 +1,3 @@
 export let appConfiguration = {
-	mathParserServiceUrl:"http://localhost:5000"
+	mathParserServiceUrl:"https://mathparser.herokuapp.com"
 };
