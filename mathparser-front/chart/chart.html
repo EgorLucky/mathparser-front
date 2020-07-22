@@ -1,19 +1,34 @@
 ﻿<!doctype html>
+<title>MathParser| Chart</title>
 <link rel="stylesheet" href="../css/loader.css">
+<body style="width:600px; display:block; margin:auto;">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <script type="module" src="chart.js"></script>
-<textarea id="expressionInputElement">X^2</textarea>
-<br>
-Область определений<br> 
-от <input type="text" id="xMinTextBox" value="-15">
-<br>
-до <input type="text" id="xMaxTextBox" value="15">
-<br>
-с шагом <input type="text" id="xStepTextBox" value="1">
-<br>
-<button id="drawButton">Нарисовать</button>
-<br>
-<canvas id="myChart" width="400" height="400"></canvas>
+    <h1>MathParser| Построение графика</h1>
+    <a href="/">На главную</a>
+    <br>
+    Введите выражение f(x):
+    <br>
+    <textarea id="expressionInputElement" style="width:100%">x^2</textarea>
+    <br>
+    <div style="display:flex">
+        <div>
+            Область определений<br> 
+            от: <input type="text" id="xMinTextBox" value="-15">
+            <br>
+            до: <input type="text" id="xMaxTextBox" value="15">
+            <br>
+        </div>
+        <div>
+        с шагом:<br>
+        <input type="text" id="xStepTextBox" value="1">
+        <br>
+        <button id="drawButton">Построить</button>
+        </div>
+    </div>
+    <br>
+<canvas id="myChart" style="width:400px;height:400px;"></canvas>
+</body>
 
 
 

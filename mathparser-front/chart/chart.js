@@ -5,6 +5,8 @@ import {createMathparserService} from "../js/mathparserService.js";
 let mathParserService = createMathparserService(appConfiguration);
 document.getElementById('drawButton').addEventListener('click', draw);
 
+let destroyPreviousChart = null;
+
 async function draw()
 {
     let button = document.getElementById("drawButton");
@@ -18,6 +20,9 @@ async function draw()
 
     let points = await getPoints(labels);
     button.innerHTML = 'Нарисовать';
+
+    if(destroyPreviousChart != null)
+        destroyPreviousChart();
 
     let data = {
         //args
@@ -65,6 +70,8 @@ async function draw()
             }
         }
     });
+    destroyPreviousChart = () => myBarChart.destroy();
+
     button.disabled = false;
 }
 
@@ -108,12 +115,10 @@ function getLabels() {
 async function getPoints(labels) {
     let computed = await mathFunction(labels);
 
-    let results = computed.map(c => {
-        return {
+    let results = computed.map(c => ({
             x: c.parameters[0].value,
             y: c.value
-        };
-    });
+    }));
 
     return results;
 }
