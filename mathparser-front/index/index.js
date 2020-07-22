@@ -54,33 +54,49 @@ async function computeButtonClicked()
     }
 }
 
-function addParameter()
-{
+function addParameter() {
     let parametersDiv = document.getElementById("parameters");
 
     let parameterDiv = document.createElement("div");
 
     parameterDiv.className = "parameter";
+    parameterDiv.style.display = "flex";
+
+    let parameterLabelDiv = document.createElement("div");
+    parameterDiv.appendChild(parameterLabelDiv);
 
     let span1 = document.createElement("span");
     span1.innerText = "Имя параметра:";
-    parameterDiv.appendChild(span1);
+    parameterLabelDiv.appendChild(span1);
+
+    parameterLabelDiv.appendChild(document.createElement("br"));
+
+    let span2 = document.createElement("span");
+    span2.innerText = "Значение:";
+    parameterLabelDiv.appendChild(span2);
+
+    let parameterInputDiv = document.createElement("div");
+    parameterDiv.appendChild(parameterInputDiv);
 
     let nameInput = document.createElement("input");
     nameInput.type = "text";
     nameInput.className = "parameterNameInput";
-    parameterDiv.appendChild(nameInput);
+    parameterInputDiv.appendChild(nameInput);
 
-    parameterDiv.appendChild(document.createElement("br"));
-
-    let span2 = document.createElement("span");
-    span2.innerText = "Значение:";
-    parameterDiv.appendChild(span2);
+    parameterInputDiv.appendChild(document.createElement("br"));
 
     var valueInput = document.createElement("input");
     valueInput.type = "text";
     valueInput.className = "parameterValueInput";
-    parameterDiv.appendChild(valueInput);
+    parameterInputDiv.appendChild(valueInput);
 
+    let deleteButton = document.createElement("button");
+    deleteButton.innerText = "Удалить параметр";
+    deleteButton.style.height ="22px";
+
+    parameterDiv.appendChild(deleteButton);
+    
     parametersDiv.appendChild(parameterDiv);
+
+    deleteButton.addEventListener("click", () => parametersDiv.removeChild(parameterDiv));
 }

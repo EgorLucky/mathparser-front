@@ -18,7 +18,7 @@ export function createMathparserService(configuration){
 			let content = null;
 			
 			if(response.status == 200 || 
-				response.headers.get("content-type").indexOf("application/json") != -1)
+				response.headers.get("content-type").includes("application/json") != -1)
 				content = await response.json();
 			else 
 				content = await response.text();
@@ -51,7 +51,7 @@ export function createMathparserService(configuration){
 			let content = null;
 			
 			if(response.status == 200 || 
-				response.headers.get("content-type").indexOf("application/json") != -1)
+				response.headers.get("content-type").includes("application/json"))
 				content = await response.json();
 			else 
 				content = await response.text();

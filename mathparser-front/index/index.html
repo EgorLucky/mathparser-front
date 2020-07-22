@@ -1,10 +1,37 @@
-﻿<meta charset="utf8">
+﻿<title>MathParser</title>
+<meta charset="utf8">
 <script src="index.js" type="module"></script>
-<div id="parameters"></div>
-<button id="addParameterButton">Добавить параметр</button>
+<body style="width:600px;display:block;margin:auto;margin-top:10px;">
+<h1>Добро пожаловать в MathParser!</h1>
+<p>Этот сервис предназначен для парсинга и вычисления математических формул.</p>
+<p>
+Поддерживаемые операторы: +, -, /,*.
+<br>
+Поддерживаемые функции:
+<ul>
+	<li>^ - возведение в степень;</li>
+	<li>e - число e;</li>
+	<li>pi - число "пи";</li>
+	<li>exp(n) - e^n</li>
+	<li>cos(x)</li>
+	<li>sin(x)</li>
+	<li>tg(x)</li>
+	<li>ctg(x)</li>
+</ul>
+Примеры выражений:
+<ul>
+	<li>(1+2*cos(pi/2))^2</li>
+	<li>(x-y)*(cos(0)) (перед нажатием кнопки "Посчитать" добавьте параметры x и у)</li>
+</ul>
+</p>
+Введите выражение:
 <br>
 <textarea id="expressionInputElement" style="width:100%; height:20%"></textarea>
 <button id="computeButton">Посчитать</button>
-
+<div id="parameters"></div>
+<button id="addParameterButton">Добавить параметр</button>
+<br>
 <p id="resultTextElement"></p>
 
+<a href="chart">Здесь можно построить график</a>
+<body>
