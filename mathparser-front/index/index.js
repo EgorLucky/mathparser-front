@@ -21,8 +21,8 @@ async function computeButtonClicked()
             continue;
         let variableName = "";
         let value = 0;
-        for (let j = 0; j < child.children.length; j++) {
-            let subChild = child.children[j];
+        for (let j = 0; j < child.children[1].children.length; j++) {
+            let subChild = child.children[1].children[j];
             if (subChild.className == "parameterNameInput")
                 variableName = subChild.value;
             else if(subChild.className == "parameterValueInput")
@@ -35,9 +35,20 @@ async function computeButtonClicked()
         });
     }
 
-    let response = await mathParserService.computeExpression(textarea.value, parameters);
-
     let resultTextElement = document.getElementById("resultTextElement");
+    let response = null;
+    try{
+        response = await mathParserService.computeExpression(textarea.value, parameters);
+    }
+    catch(err)
+    {
+        resultTextElement.innerText = "Ошибка!"
+        if(err == "TypeError: Failed to fetch")
+            resultTextElement.innerText += "Проверьте ваше подключение к сети.";
+        return;
+    }
+
+    
     if(response.status == 200)
     {
         resultTextElement.innerText = response.content.result;
