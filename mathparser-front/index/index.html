@@ -17,21 +17,24 @@
 	<li>sin(x)</li>
 	<li>tg(x)</li>
 	<li>ctg(x)</li>
+	<li>log(a, b), где a - основание логарифма</li>
 </ul>
 Примеры выражений:
 <ul>
 	<li>(1+2*cos(pi/2))^2</li>
 	<li>(x-y)*(cos(0)) (перед нажатием кнопки "Посчитать" добавьте параметры x и у)</li>
+	<li>2 + 0.5 + 2.5*cos(pi) - log(2, 8) + sin(x) + tg(x)^2 (перед нажатием кнопки "Посчитать" добавьте параметр x)</li>
 </ul>
 </p>
 Введите выражение:
 <br>
 <textarea id="expressionInputElement" style="width:100%; height:20%"></textarea>
 <br>
-<div id="parameters"></div>
+<button id="computeButton">Посчитать</button>
 <button id="addParameterButton">Добавить параметр</button>
 <br>
-<button id="computeButton">Посчитать</button>
+<div id="parameters"></div>
+
 <p id="resultTextElement"></p>
 
 <a href="chart">Здесь можно построить график</a>
