@@ -16,9 +16,42 @@ async function draw()
 
     let labels = getLabels();
 
-    button.innerHTML = '<div class="loader"></div>';
+    let loadStatusDiv = document.getElementById("loadStatus");
 
-    let points = await getPoints(labels);
+    loadStatusDiv.innerHTML = '<div class="loader" style="margin:auto"></div>';
+
+    let getPointsResponse = null;
+    try{
+        getPointsResponse = await getPoints(labels);
+    }
+    catch(err)
+    {
+        loadStatusDiv.innerHTML = "Ошибка!"
+        if(err == "TypeError: Failed to fetch")
+            loadStatusDiv.innerHTML += "Проверьте ваше подключение к сети.";
+        button.disabled = false;
+        return;
+    }
+
+    if(getPointsResponse.status != 200)
+    {
+        if(getPointsResponse.contentType.includes("json"))
+            loadStatusDiv.innerHTML = "Ошибка! Ответ от сервера: " + getPointsResponse.content.message;
+        else 
+        {
+            loadStatusDiv.innerHTML = "Ошибка!";
+            console.log(response.content);
+        }
+        button.disabled = false;
+        return;
+    }
+
+    let points = getPointsResponse.content.result.map(c => ({
+        x: c.parameters[0].value,
+        y: c.value
+    }));
+
+    loadStatusDiv.innerHTML = "";
     button.innerHTML = 'Нарисовать';
 
     if(destroyPreviousChart != null)
@@ -75,21 +108,6 @@ async function draw()
     button.disabled = false;
 }
 
-async function mathFunction(args) {
-    let textarea = document.getElementById("expressionInputElement");
-    let expression = textarea.value;
-    let parametersTable = args.map(a => [
-    {
-        variableName: "x",
-        value: a
-    }]);
-    let response = await mathParserService.computeFunctionValues(expression, parametersTable);
-
-    let jsonResponse = await response.content;
-
-    return jsonResponse.result;
-}
-
 function getLabels() {
 
     let xMinTextBox = document.getElementById("xMinTextBox");
@@ -113,12 +131,14 @@ function getLabels() {
 }
 
 async function getPoints(labels) {
-    let computed = await mathFunction(labels);
+    let textarea = document.getElementById("expressionInputElement");
+    let expression = textarea.value;
+    let parametersTable = labels.map(a => [
+    {
+        variableName: "x",
+        value: a
+    }]);
+    let response = await mathParserService.computeFunctionValues(expression, parametersTable);
 
-    let results = computed.map(c => ({
-            x: c.parameters[0].value,
-            y: c.value
-    }));
-
-    return results;
+    return response;
 }
