@@ -34,10 +34,10 @@ async function reloadLastFunctions() {
         return;
     }
 
-    let table = createLastComputedFunctionsTable(response.content);
+    let block = createLastComputedFunctionsBlock(response.content);
 
     lastComputedFunctions.innerHTML = '';
-    lastComputedFunctions.appendChild(table);
+    lastComputedFunctions.appendChild(block);
 }
 
 async function computeButtonClicked(){
@@ -158,16 +158,21 @@ function addParameter() {
     deleteButton.addEventListener("click", () => {parametersDiv.removeChild(parameterDiv); parameterCount--;});
 }
 
-function createLastComputedFunctionsTable(content)
+function createLastComputedFunctionsBlock(content)
 {
-    const table = document.createElement("table");
-    table.border = 1;
-    table.cellSpacing = 0;
-    table.style.fontSize = "xx-large";
+    const block = document.createElement("div");
 
-    let rowIndex = -1;
-    let cellIndex = 0;
+    
     content.map(e => {
+        let rowIndex = -1;
+        let cellIndex = 0;
+        const table = document.createElement("table");
+        table.border = 1;
+        table.cellSpacing = 0;
+        table.style.fontSize = "xx-large";
+        table.style.width = "100%";
+        table.style.marginBottom = "10px";
+
         rowIndex++;
         table.insertRow();
         table.rows[rowIndex].insertCell();
@@ -212,7 +217,9 @@ function createLastComputedFunctionsTable(content)
         });
         
         cellIndex = 0;
+
+        block.appendChild(table);
     });
 
-    return table;
+    return block;
 }
