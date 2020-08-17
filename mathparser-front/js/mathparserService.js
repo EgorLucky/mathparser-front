@@ -1,7 +1,8 @@
-export function createMathparserService(configuration){
+export function createMathparserService(configuration, environment){
+	let serviceHost = (environment == "production")? configuration.mathParserServiceUrlProd: configuration.mathParserServiceUrlLocal;
 	return {
 		getLast: async function(limit){
-			let response = await fetch(configuration.mathParserServiceUrl + '/api/math/getLast?limit=' + limit);
+			let response = await fetch(serviceHost + '/api/math/getLast?limit=' + limit);
 
 			return await getResponseContent(response);
 
@@ -12,7 +13,7 @@ export function createMathparserService(configuration){
 				parameters: parameters
             };
 			
-			let response = await fetch(configuration.mathParserServiceUrl + '/api/math/computeExpression',
+			let response = await fetch(serviceHost + '/api/math/computeExpression',
 			{
 				method: "post",
 				headers: {
@@ -31,7 +32,7 @@ export function createMathparserService(configuration){
 				parametersTable: parametersTable
             };
 			
-			let response = await fetch(configuration.mathParserServiceUrl + '/api/math/computeFunctionValues',
+			let response = await fetch(serviceHost + '/api/math/computeFunctionValues',
 			{
 				method: "post",
 				headers: {

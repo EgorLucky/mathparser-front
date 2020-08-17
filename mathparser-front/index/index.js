@@ -5,7 +5,8 @@ import {createMathparserService} from "../js/mathparserService.js";
 document.getElementById("addParameterButton").addEventListener("click", addParameter);
 document.getElementById("computeButton").addEventListener("click", computeButtonClicked);
 
-const mathParserService = createMathparserService(appConfiguration);
+let environment = (document.location.host.startsWith('127') || document.location.host.startsWith("localhost")) ? "development": "production";
+const mathParserService = createMathparserService(appConfiguration, environment);
 let parameterCount = 0;
 
 
