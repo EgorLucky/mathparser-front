@@ -177,7 +177,7 @@ function createLastComputedFunctionsBlock(content)
         table.insertRow();
         table.rows[rowIndex].insertCell();
         table.rows[rowIndex].cells[cellIndex].colSpan = 2;
-        table.rows[rowIndex].cells[cellIndex].innerText = "F(" + e.parameters.map(p => p.name).join(",") + ") = " + e.expressionString;
+        table.rows[rowIndex].cells[cellIndex].innerText = e.functionNotation;
         
         cellIndex = 0;
 
@@ -191,29 +191,18 @@ function createLastComputedFunctionsBlock(content)
         
         cellIndex = 0;
 
-        e.points.map(point => {
+        e.parametersAndValues.map(point => {
             table.insertRow();
             rowIndex++;
 
             table.rows[rowIndex].insertCell();
             cellIndex = 0;
 
-            let paramStr = "";
-            if(e.parameters.length != 0)
-            {
-                paramStr = e.parameters.map(p => p.values.filter(v => v.pointId == point.id).map(v => 
-                    {
-                        let result = v.value.toString();
-                        return result;
-                    })[0])
-                    .join(",");
-            }
-
-            table.rows[rowIndex].cells[cellIndex].innerText = "F(" + paramStr +")";
+            table.rows[rowIndex].cells[cellIndex].innerText = point.parameters;
 
             table.rows[rowIndex].insertCell();
             cellIndex++;
-            table.rows[rowIndex].cells[cellIndex].innerText = point.result;
+            table.rows[rowIndex].cells[cellIndex].innerText = point.value;
         });
         
         cellIndex = 0;
