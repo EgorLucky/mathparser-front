@@ -25,7 +25,7 @@ export function createMathparserService(configuration, environment){
 			return await getResponseContent(response);
 		},
 		
-		compute2DIntervalPlot: async function(expression, parametersTable) {
+		compute2DIntervalPlot: async function(payload) {
 			
 			const payloadObject = {
 				expression: payload.expression,
