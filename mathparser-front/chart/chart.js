@@ -1,6 +1,6 @@
 // chart.js
 import {appConfiguration} from "../js/configuration.js";
-import {createMathparserService} from "../js/mathparserService.js";
+import {createMathparserService} from "../js/mathparserService.js?v=2";
 
 let environment = (document.location.host.startsWith('127') || document.location.host.startsWith("localhost")) ? "development": "production";
 const mathParserService = createMathparserService(appConfiguration, environment);
