@@ -25,14 +25,16 @@ export function createMathparserService(configuration, environment){
 			return await getResponseContent(response);
 		},
 		
-		computeFunctionValues: async function(expression, parametersTable) {
+		compute2DIntervalPlot: async function(expression, parametersTable) {
 			
-			let payloadObject = {
-				expression: expression,
-				parametersTable: parametersTable
-            };
+			const payloadObject = {
+				expression: payload.expression,
+				max: payload.xMax,
+				min: payload.xMin,
+				step: payload.xStep
+			};
 			
-			let response = await fetch(serviceHost + '/api/math/computeFunctionValues',
+			let response = await fetch(serviceHost + '/api/math/compute2DIntervalPlot',
 			{
 				method: "post",
 				headers: {

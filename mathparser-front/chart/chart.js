@@ -16,15 +16,15 @@ async function draw()
 
     let ctx = document.getElementById("myChart");
 
-    let labels = getLabels();
+    let params = getParams();
 
     let loadStatusDiv = document.getElementById("loadStatus");
 
     loadStatusDiv.innerHTML = '<div class="loader" style="margin:auto"></div>';
 
-    let getPointsResponse = null;
+    let computeResult = null;
     try{
-        getPointsResponse = await getPoints(labels);
+        computeResult = await mathParserService.compute2DIntervalPlot(params);
     }
     catch(err)
     {
@@ -35,10 +35,10 @@ async function draw()
         return;
     }
 
-    if(getPointsResponse.status != 200)
+    if(computeResult.status != 200)
     {
-        if(getPointsResponse.contentType.includes("json"))
-            loadStatusDiv.innerHTML = "Ошибка! Ответ от сервера: " + getPointsResponse.content.message;
+        if(computeResult.contentType.includes("json"))
+            loadStatusDiv.innerHTML = "Ошибка! Ответ от сервера: " + computeResult.content.message;
         else 
         {
             loadStatusDiv.innerHTML = "Ошибка!";
@@ -48,10 +48,8 @@ async function draw()
         return;
     }
 
-    let points = getPointsResponse.content.result.map(c => ({
-        x: c.parameters[0].value,
-        y: c.value
-    }));
+    const points = computeResult.content.result;
+    const labels = points.map(p => p.x);
 
     loadStatusDiv.innerHTML = "";
     button.innerHTML = 'Нарисовать';
@@ -110,37 +108,27 @@ async function draw()
     button.disabled = false;
 }
 
-function getLabels() {
+function getParams() {
 
     let xMinTextBox = document.getElementById("xMinTextBox");
     let xMaxTextBox = document.getElementById("xMaxTextBox");
     let xStepTextBox = document.getElementById("xStepTextBox");
+    let expression = document.getElementById("expressionInputElement").value;
 
     if (!(Number(xMinTextBox.value) != NaN &&
         Number(xMaxTextBox.value) != NaN &&
         Number(xStepTextBox.value) != NaN))
-        return [0, 1, 2, 3, 4, 5];
+        return {
+            xMin: 0,
+            xMax: 5,
+            xStep: 1,
+            expression
+        };
 
     let xMin = Number(xMinTextBox.value);
     let xMax = Number(xMaxTextBox.value);
     let xStep = Number(xStepTextBox.value);
-    let result = [];
-    for (xMin; xMin < xMax; xMin += xStep)
-        result.push(xMin);
-    result.push(xMax);
+    
 
-    return result;
-}
-
-async function getPoints(labels) {
-    let textarea = document.getElementById("expressionInputElement");
-    let expression = textarea.value;
-    let parametersTable = labels.map(a => [
-    {
-        variableName: "x",
-        value: a
-    }]);
-    let response = await mathParserService.computeFunctionValues(expression, parametersTable);
-
-    return response;
+    return {xMin, xMax, xStep, expression};
 }
